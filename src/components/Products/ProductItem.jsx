@@ -4,34 +4,33 @@ import "./ProductItem.css";
 import PropTypes from "prop-types";
 import Counter from "../Counter";
 
-const ProductItem = (props) => {
-  const { productImage, productName, productPrice } = props;
+const ProductItem = ({ product }) => {
+  const { imageUrl, productName, productPrice } = product;
   const [title, setTitle] = useState(productName);
   const [counter, setCounter] = useState(productPrice);
 
-  function clickHandler() {
-    setTitle("Güncellendi");
-    console.log(productName, "Güncellendi");
-  }
+  const clickHandler = () => {
+    setTitle("Güncellendi!");
+    console.log(productName, "Güncellendi!");
+  };
 
   return (
     <div className="product-item">
       <div className="product-image">
-        <img src={productImage} />
+        <img src={imageUrl} alt="" />
       </div>
       <ProductInfo>
-        <h2 className="product-title">{title}</h2>
+        <h2>{title}</h2>
+
         <Counter
           productPrice={productPrice}
           counter={counter}
           setCounter={setCounter}
         >
-          <span className="product-price">{counter}₺</span>
+          <span>{counter}₺</span>
         </Counter>
         <br />
-        <button onClick={clickHandler} id="myButton">
-          Güncelle
-        </button>
+        <button onClick={clickHandler}>Güncelle</button>
       </ProductInfo>
     </div>
   );
@@ -40,7 +39,9 @@ const ProductItem = (props) => {
 export default ProductItem;
 
 ProductItem.propTypes = {
-  productImage: PropTypes.string,
-  productName: PropTypes.string,
-  productPrice: PropTypes.number,
+  product: PropTypes.shape({
+    imageUrl: PropTypes.string.isRequired,
+    productName: PropTypes.string.isRequired,
+    productPrice: PropTypes.any.isRequired,
+  }).isRequired,
 };

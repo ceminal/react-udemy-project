@@ -17,7 +17,7 @@ const Counter = (props) => {
 export default Counter;
 
 Counter.propTypes = {
-  counter: PropTypes.number,
+  counter: PropTypes.any,
   children: PropTypes.object,
   setCounter: PropTypes.func,
 };
